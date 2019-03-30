@@ -15,33 +15,46 @@ import { Log } from '../services/Log'
 //   content={"ACTIVATE ALL"}
 //   {/* Should the button always read "ACTIVATE ALL"? When should it read "DECOMMISSION ALL"? */}
 // />
-const LogPanel = () => {
+const LogPanel = (props) => {
 
-  const dummyLogs = () => {
+    const dummyLogs = () => {
+        let logs = []
+        logs.unshift(Log.warn("This is an example of a warn log"))
+        logs.unshift(Log.notify("This is an example of a notify log"))
+        logs.unshift(Log.error("This is an example of an error log"))
+        return logs
+    }
 
-    let logs = []
+    let handleClick = () => {
+        props.handleActiveDecompClick()
+    }
 
-    logs.unshift(Log.warn("This is an example of a warn log"))
-    logs.unshift(Log.notify("This is an example of a notify log"))
-    logs.unshift(Log.error("This is an example of an error log"))
+    let handleColor = () => { 
+        if (props.activated) {
+            return "green"
+        } else {
+            return "red"
+        }
+    }
 
-    return logs
-  }
+    let handleContent = () => {
+        if (props.activated) {
+            return "DECOMMISSION ALL"
+        } else {
+            return "ACTIVATE ALL"
+        }
+    }
 
-  return(
-    <Segment className="HQComps" id="logPanel">
-      <pre>
-        {dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
-      </pre>
+    return(
+        <Segment className="HQComps" id="logPanel">
+            <pre>
+                {dummyLogs().map((log, i) => <p key={i} className={log.type}>{log.msg}</p>)}
+            </pre>
 
-      {null}
-      <Button
-        fluid
-        color={"red"}
-        content={"ACTIVATE ALL"}
-      />
-    </Segment>
-  )
+            {null}
+            <Button fluid onClick={handleClick} color={handleColor()} content={handleContent()} />
+        </Segment>
+    )
 }
 
 export default LogPanel

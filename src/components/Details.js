@@ -12,7 +12,7 @@ const Details = (props) => {
 
   return(
     <Segment id="details" className="HQComps">
-        {(props.activeHost) ? <HostInfo activeHost={props.activeHost} /> : renderSomething()}
+          {(props.selectedHost) ? <HostInfo areas={props.areas} hosts={props.hosts} selectedHost={props.selectedHost} setNewArea={props.setNewArea} activateDecommissionSelectedHost={props.activateDecommissionSelectedHost} /> : renderSomething()}
     </Segment>
   )
 }

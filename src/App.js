@@ -5,42 +5,86 @@ import WestworldMap from './components/WestworldMap'
 import Headquarters from './components/Headquarters'
 
 const URLHost = "http://localhost:4000/hosts"
+const URLAreas = "http://localhost:4000/areas"
 
 
 class App extends Component {
 
     state = {
         hosts: [],
-        activeHost: null
+        areas: [],
+        selectedHost: null,
+        selectedHostId: null,
+        activated: false,
+        logs: []
     }
 
     componentDidMount() {
-        fetch(URLHost)
-            .then(res => res.json())
-            .then(hosts => this.setState({
-                hosts: hosts
-            }))
+        this.renderHosts()
+        this.renderAreas()
     }
 
-    handleClick = (host) => {
-        this.setState({
-            activeHost: host
+    fetchHosts = () => {
+        return fetch(URLHost).then(res => res.json())
+    }
+
+    fetchAreas = () => {
+        return fetch(URLAreas).then(res => res.json())
+    }
+
+    renderHosts = () => {
+        this.fetchHosts()
+            .then(hostsData => {
+                console.log(hostsData)
+                this.setState({ hosts: hostsData })
         })
     }
 
+    renderAreas = () => {
+        this.fetchAreas()
+            .then(areasData => {
+                console.log(areasData)
+                this.setState({ areas: areasData })
+            })
+    }
 
-  // As you go through the components given you'll see a lot of functional components.
-  // But feel free to change them to whatever you want.
-  // It's up to you whether they should be stateful or not.
+    handleSelectClick = (host) => {
+        this.setState({ selectedHost: host, selectedHostId: host.id })
+        console.log(`Host/id: ${host.firstName}${host.lastName}|${host.id} - "Is Selected"`)
+    }
 
-  render(){
-    return (
-      <Segment id='app'>
-          <WestworldMap hosts={this.state.hosts} handleClick={this.handleClick} />
-          <Headquarters hosts={this.state.hosts} activeHost={this.state.activeHost} handleClick={this.handleClick} />
-      </Segment>
-    )
-  }
+    activateDecommissionSelectedHost = (host) => {
+        // console.log(`Host Name: ${host.firstName} ${host.lastName} -- Before setState is: ${host.active}`)
+        const changeHostStatus = this.state.hosts.map(h => (h.id === host.id ? ({ ...h, active: !h.active }) : h))
+        this.setState({ selectedHost: { ...host, active: !this.state.selectedHost.active } })
+        this.setState({ hosts: changeHostStatus })
+        // this.setState({ hosts: changeHostStatus }, () => { console.log(`Host Name: ${host.firstName} ${host.lastName} -- After setState is now:` + (this.state.hosts.find((h) => h.id === host.id).active))})
+    }
+
+    handleActiveDecompClick = () => {
+        this.setState({ activated: !this.state.activated }, () => {this.activateDecommissionAllHosts()})
+    }
+
+    activateDecommissionAllHosts = () => {
+        const changeHostsActivation = this.state.hosts.map(h => (h.active === this.state.activated ? h : ({ ...h, active: this.state.activated })))
+        this.setState({ selectedHost: { ...this.state.selectedHost, active: this.state.activated } })
+        this.setState({ hosts: changeHostsActivation }, () => {console.log(this.state.activated ? "ACTIVATED ALL HOSTS" : "DECOMMISSIONED ALL HOSTS" )})
+    }
+
+    setNewArea = (newSelectedArea, host) => {
+        const changeHostArea = this.state.hosts.map(h => (h.id === host.id ? ({ ...h, area: newSelectedArea.name }) : h))
+        this.setState({ selectedHost: { ...host, area: newSelectedArea.name } })
+        this.setState({ hosts: changeHostArea })
+    }
+
+    render(){
+        return (
+            <Segment id='app'>
+                <WestworldMap hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} />
+                <Headquarters hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} setNewArea={this.setNewArea} activateDecommissionSelectedHost={this.activateDecommissionSelectedHost} handleActiveDecompClick={this.handleActiveDecompClick} activated={this.state.activated}/>
+            </Segment>
+        )
+    }
 }
 
 export default App;

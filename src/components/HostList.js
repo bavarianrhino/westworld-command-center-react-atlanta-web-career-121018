@@ -4,9 +4,13 @@ import Host from './Host'
 
 const HostList = (props) => {
 
+    // let renderMapedHosts = () => {
+    //     props.hosts.map()
+    // }
+
     return(
         <Card.Group itemsPerRow={6}>
-            {props.hosts.map(host => (<Host host={host} handleClick={props.handleClick} />))}
+            {props.hosts.map(host => (<Host key={host.id} host={host} handleSelectClick={props.handleSelectClick} />))}
         </Card.Group>
     )
 }

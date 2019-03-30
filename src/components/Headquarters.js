@@ -7,29 +7,28 @@ import LogPanel from './LogPanel'
 
 
 class Headquarters extends Component {
-  // Remember, there's many ways to do this. This doesn't have to be a class component. It's up to you.
 
-  render(){
-    return(
+    render(){
+        return(
+            <Grid celled='internally'>
 
-      <Grid celled='internally'>
-        <Grid.Column width={8}>
-            <ColdStorage hosts={this.props.hosts} handleClick={this.props.handleClick} />
-        {/* Something goes here.... */}
+                <Grid.Column width={8}>
+                    <ColdStorage hosts={this.props.hosts} handleSelectClick={this.props.handleSelectClick} />
+                    {/* Something goes here.... */}
+                </Grid.Column>
 
-        </Grid.Column>
-        <Grid.Column width={5}>
-          <Details activeHost={this.props.activeHost} />
-        </Grid.Column>
-        <Grid.Column width={3}>
-            <LogPanel />
-        {/* and here. Take visual cues from the screenshot/video in the Readme. */}
+                <Grid.Column width={5}>
+                    <Details areas={this.props.areas} hosts={this.props.hosts} selectedHost={this.props.selectedHost} setNewArea={this.props.setNewArea} activateDecommissionSelectedHost={this.props.activateDecommissionSelectedHost} />
+                </Grid.Column>
 
-        </Grid.Column>
-      </Grid>
+                <Grid.Column width={3}>
+                    <LogPanel handleActiveDecompClick={this.props.handleActiveDecompClick} activated={this.props.activated} />
+                    {/* and here. Take visual cues from the screenshot/video in the Readme. */}
+                </Grid.Column>
 
-    )
-  }
+            </Grid>
+        )
+    }
 }
 
 export default Headquarters;
