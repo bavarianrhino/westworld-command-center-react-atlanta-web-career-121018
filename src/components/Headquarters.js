@@ -13,7 +13,7 @@ class Headquarters extends Component {
             <Grid celled='internally'>
 
                 <Grid.Column width={8}>
-                    <ColdStorage hosts={this.props.hosts} handleSelectClick={this.props.handleSelectClick} />
+                    <ColdStorage hosts={this.props.hosts} selectedHostId={this.props.selectedHostId} handleSelectClick={this.props.handleSelectClick} />
                     {/* Something goes here.... */}
                 </Grid.Column>
 
@@ -22,7 +22,7 @@ class Headquarters extends Component {
                 </Grid.Column>
 
                 <Grid.Column width={3}>
-                    <LogPanel handleActiveDecompClick={this.props.handleActiveDecompClick} activated={this.props.activated} />
+                    <LogPanel logs={this.props.logs} handleActiveDecompClick={this.props.handleActiveDecompClick} activated={this.props.activated} />
                     {/* and here. Take visual cues from the screenshot/video in the Readme. */}
                 </Grid.Column>
 

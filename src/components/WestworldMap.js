@@ -7,7 +7,7 @@ class WestworldMap extends Component {
 
     mapAreas = () => {
         return this.props.areas.map(area => {
-            return <Area key={area.id} area={area} hosts={this.props.hosts} handleSelectClick={this.props.handleSelectClick} />
+            return <Area key={area.id} area={area} hosts={this.props.hosts} selectedHostId={this.props.selectedHostId} handleSelectClick={this.props.handleSelectClick} />
         })
     }
 

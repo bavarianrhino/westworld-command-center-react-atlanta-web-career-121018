@@ -81,7 +81,7 @@ class App extends Component {
         return (
             <Segment id='app'>
                 <WestworldMap hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} />
-                <Headquarters hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} setNewArea={this.setNewArea} activateDecommissionSelectedHost={this.activateDecommissionSelectedHost} handleActiveDecompClick={this.handleActiveDecompClick} activated={this.state.activated}/>
+                <Headquarters hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} setNewArea={this.setNewArea} activateDecommissionSelectedHost={this.activateDecommissionSelectedHost} handleActiveDecompClick={this.handleActiveDecompClick} activated={this.state.activated} logs={this.state.logs} />
             </Segment>
         )
     }

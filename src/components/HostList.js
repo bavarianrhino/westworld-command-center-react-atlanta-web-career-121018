@@ -10,7 +10,7 @@ const HostList = (props) => {
 
     return(
         <Card.Group itemsPerRow={6}>
-            {props.hosts.map(host => (<Host key={host.id} host={host} handleSelectClick={props.handleSelectClick} />))}
+            {props.hosts.map(host => (<Host key={host.id} host={host} selectedHostId={props.selectedHostId} handleSelectClick={props.handleSelectClick} />))}
         </Card.Group>
     )
 }

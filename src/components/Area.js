@@ -9,7 +9,7 @@ const Area = (props) => (
 
     <div className='area' id={props.area.name}>
         <h3 className='labels'>{_.startCase(props.area.name)}</h3>
-        <HostList hosts={props.hosts.filter(host => (host.active && (host.area === props.area.name)))} handleSelectClick={props.handleSelectClick} />
+        <HostList hosts={props.hosts.filter(host => (host.active && (host.area === props.area.name)))} selectedHostId={props.selectedHostId} handleSelectClick={props.handleSelectClick} />
     </div>
 )
 

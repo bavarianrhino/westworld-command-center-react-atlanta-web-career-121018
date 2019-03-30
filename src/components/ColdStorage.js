@@ -10,7 +10,7 @@ const ColdStorage = (props) => (
         </Segment>
 
         <Segment compact>
-            <HostList hosts={props.hosts.filter(host => (!host.active))} handleSelectClick={props.handleSelectClick}/>
+            <HostList hosts={props.hosts.filter(host => (!host.active))} selectedHostId={props.selectedHostId} handleSelectClick={props.handleSelectClick}/>
         </Segment>
 
     </Segment.Group>
