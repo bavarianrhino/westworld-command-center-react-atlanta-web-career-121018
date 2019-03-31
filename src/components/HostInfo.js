@@ -1,6 +1,7 @@
 import '../stylesheets/HostInfo.css'
 import React, { Component } from 'react'
 import { Radio, Icon, Card, Grid, Image, Dropdown, Divider } from 'semantic-ui-react'
+import { Log } from '../services/Log';
 
 
 class HostInfo extends Component {
@@ -21,10 +22,10 @@ class HostInfo extends Component {
 
         if (newSelectedArea.limit < (hostsInNewSelectedArea.length + 1)) {
             // addLog(Log.error(`Too many hosts. `))
-            // addLog(Log.error(`Too many hosts. Cannot add ${selectedHost.firstName} to ${newArea.namesObject.text}.`))
+            this.props.handleLogs(Log.error(`Too many hosts. Cannot add ${this.props.selectedHost.firstName} to ${newSelectedArea.name}.`))
         } else {
             // addLog(Log.notify(`set in area`))
-            // addLog(Log.notify(`${selectedHost.firstName} set in area ${newArea.namesObject.text}`))
+            this.props.handleLogs(Log.notify(`${this.props.selectedHost.firstName} set in area ${newSelectedArea.name}`))
             this.props.setNewArea(newSelectedArea, this.props.selectedHost)
         }
     }
@@ -60,3 +61,4 @@ class HostInfo extends Component {
 }
 
 export default HostInfo
+// addLog(Log.notify(`${this.props.selectedHost.firstName} set in area ${newArea.namesObject.text}`))

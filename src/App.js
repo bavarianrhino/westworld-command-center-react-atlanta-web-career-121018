@@ -3,6 +3,7 @@ import './stylesheets/App.css'
 import { Segment } from 'semantic-ui-react';
 import WestworldMap from './components/WestworldMap'
 import Headquarters from './components/Headquarters'
+import { Log } from './services/Log';
 
 const URLHost = "http://localhost:4000/hosts"
 const URLAreas = "http://localhost:4000/areas"
@@ -22,6 +23,7 @@ class App extends Component {
     componentDidMount() {
         this.renderHosts()
         this.renderAreas()
+        this.logInitialLogs()
     }
 
     fetchHosts = () => {
@@ -46,6 +48,11 @@ class App extends Component {
                 console.log(areasData)
                 this.setState({ areas: areasData })
             })
+    }
+
+    logInitialLogs = () => {
+        const welcomeLog = Log.notify("Welcome to WestWorld!")
+        this.setState({ logs: [welcomeLog, ...this.state.logs] })
     }
 
     handleSelectClick = (host) => {
@@ -77,11 +84,16 @@ class App extends Component {
         this.setState({ hosts: changeHostArea })
     }
 
+    handleLogs = (log) => {
+        // console.log(log)
+        this.setState({ logs: [log, ...this.state.logs] })
+    }
+
     render(){
         return (
             <Segment id='app'>
                 <WestworldMap hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} />
-                <Headquarters hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} setNewArea={this.setNewArea} activateDecommissionSelectedHost={this.activateDecommissionSelectedHost} handleActiveDecompClick={this.handleActiveDecompClick} activated={this.state.activated} logs={this.state.logs} />
+                <Headquarters hosts={this.state.hosts} areas={this.state.areas} selectedHost={this.state.selectedHost} selectedHostId={this.state.selectedHostId} handleSelectClick={this.handleSelectClick} setNewArea={this.setNewArea} activateDecommissionSelectedHost={this.activateDecommissionSelectedHost} handleActiveDecompClick={this.handleActiveDecompClick} activated={this.state.activated} logs={this.state.logs} handleLogs={this.handleLogs} />
             </Segment>
         )
     }

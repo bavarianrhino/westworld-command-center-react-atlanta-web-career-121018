@@ -18,11 +18,11 @@ class Headquarters extends Component {
                 </Grid.Column>
 
                 <Grid.Column width={5}>
-                    <Details areas={this.props.areas} hosts={this.props.hosts} selectedHost={this.props.selectedHost} setNewArea={this.props.setNewArea} activateDecommissionSelectedHost={this.props.activateDecommissionSelectedHost} />
+                    <Details areas={this.props.areas} handleLogs={this.props.handleLogs} hosts={this.props.hosts} selectedHost={this.props.selectedHost} setNewArea={this.props.setNewArea} activateDecommissionSelectedHost={this.props.activateDecommissionSelectedHost} />
                 </Grid.Column>
 
                 <Grid.Column width={3}>
-                    <LogPanel logs={this.props.logs} handleActiveDecompClick={this.props.handleActiveDecompClick} activated={this.props.activated} />
+                    <LogPanel logs={this.props.logs} handleLogs={this.props.handleLogs} handleActiveDecompClick={this.props.handleActiveDecompClick} activated={this.props.activated} />
                     {/* and here. Take visual cues from the screenshot/video in the Readme. */}
                 </Grid.Column>
 
